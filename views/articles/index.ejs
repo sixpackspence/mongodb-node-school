@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>First Blog App</title>
+</head>
+<body class="bg-info">
+  <div class="container">
+    <h1 class="mb-4">Blog Articles</h1>
+    <a href="/articles/new" class="btn btn-success">New Article</a>
+<!--this button references the .get('/new') in articles.js -->
+    <% articles.forEach(article => { %> 
+      <!--for each iteration of our article we are going to output sometype of html here
+      it will loop through and print out all things in articles-->
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title"><%= article.title %> </h4>
+          <div class="card-subtitle text-muted mb-2">
+            <%= article.createdAt.toLocaleDateString() %> 
+          </div><!--CHECK ALL AREAS THAT NEED /'s !!!-->
+          <div class="card-text mb-2"><%= article.description %></div>
+          <a href="articles/<%= article.slug %>" class="btn btn-primary">View Article</a>
+          <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
+          <form action="/articles/<%= article.id %>?_method=DELETE"
+            method="POST" class="d-inline"><!--dont use a plain link tag for delete-->
+          <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+      <% }) %> 
+  </div>
+</body>
+</html>
